@@ -1,8 +1,12 @@
 package com.android.malektask;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.icu.text.CaseMap;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.android.malektask.Imdb.Movies;
 import com.android.malektask.ImdbDetails.MoviesTitle;
@@ -20,8 +24,19 @@ public class AsyncHttpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_http);
-        final String address = "https://www.omdbapi.com/?s=gladiator&apikey=70ad462a";
-        final String titleaddres = "https://www.omdbapi.com/?t=gladiator&apikey=70ad462a";
+        RecyclerView recycler = findViewById(R.id.recycler);
+
+
+        //adapter
+
+
+
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+
+        final String address = "https://www.omdbapi.com/?s="+title+"&apikey=70ad462a";
+
+        final String titleaddress = "https://www.omdbapi.com/?t="+title+"&apikey=70ad462a";
         final AsyncHttpClient client = new AsyncHttpClient();
         final AsyncHttpClient client1 = new AsyncHttpClient();
 
@@ -31,15 +46,15 @@ public class AsyncHttpActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Gson gson = new Gson();
                 Movies movies = gson.fromJson(response.toString(),Movies.class);
-             /*
+
                 Log.d(TAG, "test 1: " + response.toString( ) );
                 Log.d(TAG, "test 2: " + movies.getTotalResults());
-                Log.d(TAG, "test 3:getTitle " + movies.getSearch().get(2).getTitle());
-                Log.d(TAG, "test 4:getType " + movies.getSearch().get(2).getType());
-                Log.d(TAG, "test 5:getYear " + movies.getSearch().get(2).getYear());
-                Log.d(TAG, "test 6:getImdbID " + movies.getSearch().get(2).getImdbID());
-                Log.d(TAG, "test 7:getPoster" + movies.getSearch().get(2).getPoster());
-              */
+                Log.d(TAG, "test 3:getTitle " + movies.getSearch().get(0).getTitle());
+                Log.d(TAG, "test 4:getType " + movies.getSearch().get(0).getType());
+                Log.d(TAG, "test 5:getYear " + movies.getSearch().get(0).getYear());
+                Log.d(TAG, "test 6:getImdbID " + movies.getSearch().get(0).getImdbID());
+                Log.d(TAG, "test 7:getPoster" + movies.getSearch().get(0).getPoster());
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
@@ -48,21 +63,21 @@ public class AsyncHttpActivity extends AppCompatActivity {
         });
 
         // get Title
-        client1.get(titleaddres,new JsonHttpResponseHandler(){
+        client1.get(titleaddress,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                 Gson gson = new Gson();
                 MoviesTitle moviesTitle = gson.fromJson(response.toString(), MoviesTitle.class);
-            /*
-                Log.d(TAG, "test 1: " + response.toString( ) );
-                Log.d(TAG, "test 2: " + moviesTitle.getTitle());
-                Log.d(TAG, "test 3:getTitle " + moviesTitle.getActors());
-                Log.d(TAG, "test 4:getType " + moviesTitle.getActors());
-                Log.d(TAG, "test 5:getYear " + moviesTitle.getAwards());
-                Log.d(TAG, "test 6:getImdbID " + moviesTitle.getBoxOffice());
-                Log.d(TAG, "test 7:getPoster" + moviesTitle.getCountry());
-            */
+
+                Log.d(TAG, "test 8: " + response.toString( ) );
+                Log.d(TAG, "test 9: " + moviesTitle.getTitle());
+                Log.d(TAG, "test 10:getTitle " + moviesTitle.getActors());
+                Log.d(TAG, "test 11:getType " + moviesTitle.getActors());
+                Log.d(TAG, "test 12:getYear " + moviesTitle.getAwards());
+                Log.d(TAG, "test 13:getImdbID " + moviesTitle.getBoxOffice());
+                Log.d(TAG, "test 14:getPoster" + moviesTitle.getCountry());
+
             }
 
             @Override
@@ -71,4 +86,11 @@ public class AsyncHttpActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+
 }
