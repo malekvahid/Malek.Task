@@ -14,7 +14,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:textSize="30dp"
-                android:text="نام یا بخشی از نام فیلم مورد نظر را در کادر زیر تایپ کنید"
+                android:text="نام یا بخشی از نام فیلم مورد نظر را با حروف انگلیسی در کادر زیر تایپ کنید"
             />
 
             <EditText

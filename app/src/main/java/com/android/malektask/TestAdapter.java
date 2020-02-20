@@ -1,5 +1,6 @@
 package com.android.malektask;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,27 +32,36 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestViewHolder
     @Override
     public void onBindViewHolder(@NonNull TestViewHolder holder, int position) {
 
-        switch (position){
-            case 0:
-            holder.txtTitle.setText("test1");
-            break;
+        String Title = searchTitle.get(position).getTitle();
+        holder.txtTitle.setText("Title: " + Title);
 
-
-
-        }
     }
 
     @Override
     public int getItemCount() {
-        return 12;
+
+        return searchTitle.size();
+
     }
 
     class TestViewHolder extends RecyclerView.ViewHolder{
         TextView txtTitle;
 
-        public TestViewHolder(@NonNull View itemView) {
+        public TestViewHolder(@NonNull final View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txtTitle);
+
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Search search = searchTitle.get(getAdapterPosition());
+                    Intent intent = new Intent(itemView.getContext(), AsyncHttpTitleActivity.class);
+                    intent.putExtra("id", search.getImdbID());
+                    itemView.getContext().startActivity(intent);
+                }
+        });
         }
     }
 }

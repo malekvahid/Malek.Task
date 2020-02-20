@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("title", title);
                 startActivity(intent);
 
-                        Toast.makeText(MainActivity.this,"Pleas Wait", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(MainActivity.this,"Pleas Wait", Toast.LENGTH_LONG).show();
 
                     }
                 });
