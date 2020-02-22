@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final EditText edtSearch = findViewById(R.id.edtSearch);
         Button btnSearch = findViewById(R.id.btnSearch);
+
+
+
+
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

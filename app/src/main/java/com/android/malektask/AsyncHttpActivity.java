@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.malektask.Imdb.Movies;
@@ -15,6 +18,7 @@ import com.android.malektask.ImdbDetails.MoviesTitle;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -31,7 +35,7 @@ public class AsyncHttpActivity extends AppCompatActivity {
         String title = intent.getStringExtra("title");
         final String address = "https://www.omdbapi.com/?s="+title+"&apikey=70ad462a";
         final AsyncHttpClient client = new AsyncHttpClient();
-
+        final String[] imdbId = new String[1];
         //get Search Title
         client.get(address,new JsonHttpResponseHandler(){
             @Override
@@ -46,7 +50,12 @@ public class AsyncHttpActivity extends AppCompatActivity {
                     Recycler.setLayoutManager(new LinearLayoutManager(AsyncHttpActivity.this
                     , RecyclerView.VERTICAL, false));
 
+
+
+
+
                 /*
+
 
                 \\ Log D TAG
                 Log.d(TAG, "test 1: " + response.toString( ) );
@@ -57,12 +66,27 @@ public class AsyncHttpActivity extends AppCompatActivity {
                 Log.d(TAG, "test 6:getImdbID " + movies.getSearch().get(0).getImdbID());
                 Log.d(TAG, "test 7:getPoster" + movies.getSearch().get(0).getPoster());
                 */
+
+   //                Log.d(TAG,"test 17 imdbRating: " + moviesTitle.getImdbRating());
+
+
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
