@@ -24,7 +24,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Search
     @Override
     public SearchedHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.recycler_item,parent,false);
+        View v = inflater.inflate(R.layout.searched_item,parent,false);
         SearchedHolder holder = new SearchedHolder(v);
         return holder;
     }
@@ -58,9 +58,6 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Search
         TextView txtSearchedLanguage;
         public SearchedHolder(@NonNull View itemView) {
             super(itemView);
-         /*
-
-
             txtSearchedTitle = itemView.findViewById(R.id.txtSearchedTitle);
             txtSearchedYear = itemView.findViewById(R.id.txtSearchedYear);
             imgSearchedPoster = itemView.findViewById(R.id.imgSearchedPoster);
@@ -69,8 +66,7 @@ public class SearchedAdapter extends RecyclerView.Adapter<SearchedAdapter.Search
             txtSearchedGenre = itemView.findViewById(R.id.txtSearchedGenre);
             txtSearchedCountry = itemView.findViewById(R.id.txtSearchedCountry);
             txtSearchedLanguage = itemView.findViewById(R.id.txtSearchedLanguage);
-        */
-        }
+         }
 
     }
 }

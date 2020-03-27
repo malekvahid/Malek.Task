@@ -17,6 +17,9 @@
         <activity android:name=".AsyncHttpActivity">
 
         </activity>
+        <activity android:name=".SearchedMovieActivity">
+
+        </activity>
 
         <activity android:name=".MainActivity">
 
