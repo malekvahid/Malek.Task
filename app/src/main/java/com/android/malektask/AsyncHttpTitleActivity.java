@@ -1,14 +1,15 @@
 package com.android.malektask;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.malektask.ImdbDetails.MoviesTitle;
 import com.google.gson.Gson;
@@ -21,19 +22,11 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 
 
-
 public class AsyncHttpTitleActivity extends AppCompatActivity {
     private static final String TAG = "AsyncHttpTitleActivity";
-
-
-
-
-
+    final DataBase db = new DataBase(AsyncHttpTitleActivity.this, "Imdb", null, 1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-
         super.onCreate(savedInstanceState);
             // Details On Selected Film Title On RecyclerView
             setContentView(R.layout.activity_async_http_title);
@@ -51,14 +44,14 @@ public class AsyncHttpTitleActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
                     super.onSuccess(statusCode, headers, response);
+                Button btnSaveToDb = findViewById(R.id.btnSaveToDb);
 
-                    Gson gson = new Gson();
-                    MoviesTitle moviesTitle = gson.fromJson(response.toString(), MoviesTitle.class);
+                Gson gson = new Gson();
+                MoviesTitle moviesTitle = gson.fromJson(response.toString(), MoviesTitle.class);
 
-                    // Log d Details On Selected Film Title On RecyclerView
-
+                /*
+                     Log d Details On Selected Film Title On RecyclerView
 
                     Log.d(TAG,"test 01 Title: " + moviesTitle.getTitle());
                     Log.d(TAG,"test 02 Year: " + moviesTitle.getYear());
@@ -83,20 +76,24 @@ public class AsyncHttpTitleActivity extends AppCompatActivity {
                     Log.d(TAG,"test 21 DVD: " + moviesTitle.getDVD());
                     Log.d(TAG,"test 22 BoxOffice: " + moviesTitle.getBoxOffice());
                     Log.d(TAG,"test 23 Production: " + moviesTitle.getProduction());
+ */
+                //txtCountry.setText("Country: " + prop.getCountry());
+                final String title = moviesTitle.getTitle();
+                final String year = moviesTitle.getYear();
+                final String poster = moviesTitle.getPoster();
+                final String director = moviesTitle.getDirector();
+                final String genre = moviesTitle.getGenre();
+                final String actors = moviesTitle.getActors();
+                final String country = moviesTitle.getCountry();
+                final String language = moviesTitle.getLanguage();
 
-                    //txtCountry.setText("Country: " + prop.getCountry());
-
-                    Rat[0] = Float.parseFloat(moviesTitle.getImdbRating());
-
+                Rat[0] = Float.parseFloat(moviesTitle.getImdbRating());
                 ratingBar.setRating(Rat[0]/2);
-
-                   // ratingBar.setRating((float) (moviesTitle.getRated()));
-                  //  ratingBar.setRating(moviesTitle.getRated());
-                  //  ratingBar.setRating(moviesTitle.getRatings());
-                    //ratingBar.setRating((moviesTitle.getImdbRating()));
+                txtdetails.setText(
 
 
-                    txtdetails.setText(
+
+
                         "Title :"+ moviesTitle.getTitle()+ '\n'+
                        '\n' + "Year: " + moviesTitle.getYear() + '\n'+
                        '\n'+ "Rated: " + moviesTitle.getRated() + '\n'+
@@ -120,13 +117,17 @@ public class AsyncHttpTitleActivity extends AppCompatActivity {
 
                         String imgUrl = moviesTitle.getPoster();
                         Picasso.get().load(imgUrl).into(imageView);
-
-
-
-
+                btnSaveToDb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    db.insertMovie(title,year,poster,director,actors,genre,country,language);
+                    Toast.makeText(AsyncHttpTitleActivity.this, "Saved to database", Toast.LENGTH_LONG).show();
+                    }
+                });
 
 
             }
+
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
